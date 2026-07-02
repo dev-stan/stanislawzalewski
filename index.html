@@ -237,7 +237,7 @@
   .cases-track .shot-wrap { margin-bottom: 0 !important; }
 
   /* Case 01 - Kotowski */
-  .kotowski { background: #12201A; color: #F3EFE6; padding: 100px 40px; position: relative; }
+  .kotowski { background: #12201A; color: #F3EFE6; padding: 100px 40px; position: relative; border-top: 1px solid rgba(243,239,230,0.14); }
   .kotowski .inner { max-width: 1080px; margin: 0 auto; }
   .kotowski .head-row {
     display: flex; justify-content: space-between; align-items: baseline;
@@ -278,7 +278,7 @@
   .kotowski .timeline .label { font-size: 14px; color: #F3EFE6; }
 
   /* Case 02 - Dzieciaki */
-  .dzieciaki { background: #FFFFFF; color: #0A2A3D; padding: 100px 40px; position: relative; overflow: hidden; }
+  .dzieciaki { background: #FFFFFF; color: #0A2A3D; padding: 100px 40px; position: relative; overflow: hidden; border-top: 1px solid rgba(23,20,15,0.08); }
   .dzieciaki .blob-1 { position:absolute; top:-120px; right:-120px; width:340px; height:340px; border-radius:50%; background:#00A0E3; opacity:0.12; }
   .dzieciaki .blob-2 { position:absolute; bottom:-100px; left:-60px; width:220px; height:220px; border-radius:50%; background:#FFD23F; opacity:0.18; }
   .dzieciaki .inner { max-width: 1080px; margin: 0 auto; position: relative; }
@@ -315,7 +315,7 @@
   .dzieciaki .card-dark p { font-size:15px; line-height:1.6; margin:0; color:rgba(255,255,255,0.85); }
 
   /* Case 03 - Italy */
-  .italy { background: #16141A; color: #EDE7DD; padding: 120px 40px; }
+  .italy { background: #16141A; color: #EDE7DD; padding: 120px 40px; border-top: 1px solid rgba(237,231,221,0.12); }
   .italy .inner { max-width: 900px; margin: 0 auto; }
   .italy .head-row {
     display: flex; justify-content: space-between; align-items: baseline;
@@ -549,7 +549,7 @@
   }
 
   /* Reviews / Social proof */
-  .reviews { background: #FAF9F6; color: #17140F; padding: 104px 40px 112px; border-top: 1px solid rgba(23,20,15,0.08); }
+  .reviews { background: #FAF9F6; color: #17140F; padding: 104px 40px 152px; border-top: 1px solid rgba(23,20,15,0.08); }
   .reviews .inner { max-width: 900px; margin: 0 auto; }
   .reviews .kicker {
     font-family: 'JetBrains Mono', monospace; font-size: 12px;
@@ -565,15 +565,27 @@
      scrollbar itself is hidden. */
   .reviews .stage {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    gap: 20px; padding: 6px 4px; margin: -6px -4px;
+    gap: 0; padding-bottom: 4px;
     -webkit-overflow-scrolling: touch; cursor: grab;
     scrollbar-width: none; -ms-overflow-style: none;
+    /* Soften the left/right clip edges so cards fade into the container while
+       scrolling instead of showing a hard cut (like the usługi marquee). The
+       48px fade sits in the slot's inset, so the centred panel's shadow - whose
+       faint tail also reaches ~48px - stays visually intact. */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
   }
   .reviews .stage::-webkit-scrollbar { display: none; }
   .reviews .stage.is-dragging { cursor: grabbing; scroll-snap-type: none; }
   .reviews .stage.is-dragging .rev-card { user-select: none; }
+  /* Each card is a full-width, transparent snap slot. Its horizontal padding
+     insets the visible panel from the scroll box edge, so the panel's drop
+     shadow renders inside that padding and is never clipped by the scroller. */
   .reviews .rev-card {
     flex: 0 0 100%; scroll-snap-align: center;
+    padding: 44px 48px; box-sizing: border-box;
+  }
+  .reviews .rev-inner {
     display: flex; flex-direction: column; justify-content: center;
     background: #FFFFFF; border: 1px solid rgba(23,20,15,0.1);
     border-radius: 20px; padding: 44px 48px;
@@ -603,14 +615,18 @@
   }
   .reviews .rev-dots button.is-active { background: oklch(53.139% 0.12465 241.363); width: 26px; border-radius: 999px; }
   @media (max-width: 640px) {
-    .reviews { padding: 72px 20px 80px; }
+    .reviews { padding: 72px 12px 140px; }
     .reviews .rev-title { margin-bottom: 32px; }
-    .reviews .rev-card { padding: 32px 26px; }
+    /* Keep a >=48px horizontal inset on the slot so the panel's shadow always
+       has room and never clips; only the inner content padding tightens. */
+    .reviews .rev-card { padding: 32px 48px; }
+    .reviews .rev-inner { padding: 32px 26px; }
     .reviews .rev-quote { font-size: 17px; }
     .reviews .rev-dots { margin-top: 28px; }
   }
   @media (max-width: 380px) {
-    .reviews .rev-card { padding: 28px 22px; }
+    .reviews .rev-card { padding: 28px 48px; }
+    .reviews .rev-inner { padding: 28px 22px; }
     .reviews .rev-quote { font-size: 16px; }
   }
 
@@ -705,6 +721,11 @@
       padding: 40px 20px 32px !important;
       border: none; margin: 0;
     }
+    /* Thin top border on each project card, tuned to its background. */
+    .cases-track > section.kotowski { border-top: 1px solid rgba(243,239,230,0.14); }
+    .cases-track > section.dzieciaki { border-top: 1px solid rgba(23,20,15,0.08); }
+    .cases-track > section.italy { border-top: 1px solid rgba(237,231,221,0.12); }
+    .cases-track > section.zukowski { border-top: 1px solid #111; border-bottom: 1px solid #111; }
     /* Swiped-in cards must never be blank - reveal is handled by the carousel. */
     .cases-track > section.reveal { opacity: 1; transform: none; transition: none; }
     /* Neutralize decorative section separators inside the carousel. */
@@ -819,7 +840,7 @@
 <div class="cases-carousel" id="work">
   <!-- Mobile-only header: label + number pills (01-04). -->
   <div class="cases-head" aria-hidden="true">
-    <div class="cases-label" data-i18n="intro.casesLabel">Case Studies</div>
+    <div class="cases-label" data-i18n="intro.casesLabel">Projects</div>
     <div class="cases-pills" role="tablist"></div>
   </div>
 
@@ -1041,7 +1062,7 @@
         kicker: 'About',
         lead: "I'm a freelancer based in Poznań. I build single-page sites, multi-page sites and online stores - essentially anything web. I run the project from the idea and the design, through going live on a domain, to ongoing care and development.",
         servicesLabel: 'Services',
-        casesLabel: 'Case Studies',
+        casesLabel: 'Projects',
         authorRole: 'Freelancer · web engineer',
         services: [
           {title:'Single-page sites', body:'Fast, focused landing pages built around one goal - real conversion.'},
@@ -1061,7 +1082,7 @@
         ]
       },
       kotowski: {
-        tag: 'Case Study 04', client: 'Kotowski Golf Academy', domain: 'filipkotowski.pl',
+        tag: 'Project 04', client: 'Kotowski Golf Academy', domain: 'filipkotowski.pl',
         title: 'Bookings, credibility, and a coach who needed to be promoted.',
         briefLabel: 'Brief',
         brief: 'A booking funnel for a PGA-certified golf coach - serving Polish, German and English speakers across three markets at once.',
@@ -1075,7 +1096,7 @@
         timeline: [{year:'01',label:'Discovery'},{year:'02',label:'Structure'},{year:'03',label:'Local SEO'},{year:'04',label:'Launch'}]
       },
       dzieciaki: {
-        tag: 'Case Study 01', client: 'Dzieciaki Na Dechy', domain: 'dzieciakinadechy.com',
+        tag: 'Project 01', client: 'Dzieciaki Na Dechy', domain: 'dzieciakinadechy.com',
         title: 'A summer camp site that had to "look like summer".',
         roleTitle: 'What I built',
         roleBody: 'A full front-end refresh, a consistent badge and button system, and dedicated campaign pages for each half-kolonie sign-up season.',
@@ -1083,7 +1104,7 @@
         fixed: 'An expired-domain warning, thin content, and inconsistent contact details (NAP) across the location pages.'
       },
       italy: {
-        tag: 'Case Study 02', client: 'Tastes of Italy Travel', domain: 'tastesofitalytravel.com',
+        tag: 'Project 02', client: 'Tastes of Italy Travel', domain: 'tastesofitalytravel.com',
         title: 'A site with a passion for carefully composed journeys.',
         statTitle: 'Zero spam, I promise.',
         statBody: '25,000+ recipients · deliverability & re-permission strategy · MailerLite campaign management',
@@ -1096,7 +1117,7 @@
         ]
       },
       zukowski: {
-        tag: 'Case Study 03', client: 'Borys Żukowski', domain: 'zukowskiborys.com',
+        tag: 'Project 03', client: 'Borys Żukowski', domain: 'zukowskiborys.com',
         title: 'A competition portfolio treated like a set of technical drawings.',
         plates: [
           {num:'01', label:'Brief', caption:'An index-driven layout, with no unnecessary ornament.'},
@@ -1115,12 +1136,12 @@
       },
       contact: {
         title: 'Have a project? Let’s talk.',
-        body: 'Tell me in two sentences what you have in mind - I’ll get back to you quickly and say plainly how I can help. Standard sites and the more unusual ideas equally welcome.',
+        body: 'Tell me in two sentences what you have in mind - I’ll get back to you quickly and let you know how I can help. Standard sites and the more unusual ideas equally welcome.',
         emailLabel: 'Email', waLabel: 'WhatsApp'
       },
       footer: { rights: 'Designed and built by me ;)' },
       ui: { viewShot: 'View' },
-      nav: { work: 'Case studies', about: 'About', contact: 'Contact' }
+      nav: { work: 'Projects', about: 'About', contact: 'Contact' }
     },
     pl: {
       hero: {
@@ -1133,7 +1154,7 @@
         kicker: 'O mnie',
         lead: 'Jestem freelancerem z poznańskiego Strzeszyna. Buduję strony jedno i wielostronicowe oraz sklepy - w zasadzie wszystko, co webowe. Prowadzę projekt od pomysłu i projektu graficznego, przez wdrożenie domeny, po dalszą opiekę i rozwój.',
         servicesLabel: 'Usługi',
-        casesLabel: 'Case Studies',
+        casesLabel: 'Projekty',
         authorRole: 'freelancer · inżynier webowy',
         services: [
           {title:'Strony jednostronicowe', body:'Szybkie, konkretne landing page nastawione na jeden cel - realną konwersję.'},
@@ -1153,7 +1174,7 @@
         ]
       },
       kotowski: {
-        tag: 'Case Study 04', client: 'Kotowski Golf Academy', domain: 'filipkotowski.pl',
+        tag: 'Projekt 04', client: 'Kotowski Golf Academy', domain: 'filipkotowski.pl',
         title: 'Rezerwacje, wiarygodność i trener, którego trzeba było wypromować.',
         briefLabel: 'Brief',
         brief: 'Lejek rezerwacyjny dla trenera golfa z certyfikatem PGA - obsługa klientów po polsku, niemiecku i angielsku, na trzech rynkach naraz.',
@@ -1167,7 +1188,7 @@
         timeline: [{year:'01',label:'Odkrycie'},{year:'02',label:'Struktura'},{year:'03',label:'SEO lokalne'},{year:'04',label:'Wdrożenie'}]
       },
       dzieciaki: {
-        tag: 'Case Study 01', client: 'Dzieciaki Na Dechy', domain: 'dzieciakinadechy.com',
+        tag: 'Projekt 01', client: 'Dzieciaki Na Dechy', domain: 'dzieciakinadechy.com',
         title: 'Strona kolonijna, która musiała "wyglądać jak lato".',
         roleTitle: 'Co zbudowałem',
         roleBody: 'Pełne odświeżenie frontendu, spójny system odznak i przycisków oraz osobne strony kampanijne pod każdy sezon zapisów na półkolonie.',
@@ -1175,7 +1196,7 @@
         fixed: 'Ostrzeżenie o wygasłej domenie, zbyt ubogie treści i rozjechane dane kontaktowe (NAP) na stronach lokalizacji.'
       },
       italy: {
-        tag: 'Case Study 02', client: 'Tastes of Italy Travel', domain: 'tastesofitalytravel.com',
+        tag: 'Projekt 02', client: 'Tastes of Italy Travel', domain: 'tastesofitalytravel.com',
         title: 'Strona z pasją do starannie ułożonych podróży.',
         statTitle: 'Zero spamu, obiecuję.',
         statBody: 'Ponad 25 000 odbiorców · strategia dostarczalności i ponownej zgody (re-permission) · prowadzenie kampanii w MailerLite',
@@ -1188,7 +1209,7 @@
         ]
       },
       zukowski: {
-        tag: 'Case Study 03', client: 'Borys Żukowski', domain: 'zukowskiborys.com',
+        tag: 'Projekt 03', client: 'Borys Żukowski', domain: 'zukowskiborys.com',
         title: 'Portfolio konkursowe potraktowane jak zestaw rysunków technicznych.',
         plates: [
           {num:'01', label:'Brief', caption:'Układ oparty na indeksie, bez zbędnych ozdobników.'},
@@ -1212,7 +1233,7 @@
       },
       footer: { rights: 'Zaprojektowane i zbudowane przeze mnie ;)' },
       ui: { viewShot: 'Zobacz' },
-      nav: { work: 'Case studies', about: 'O mnie', contact: 'Kontakt' }
+      nav: { work: 'Projekty', about: 'O mnie', contact: 'Kontakt' }
     }
   };
 
@@ -1294,6 +1315,7 @@
       items.forEach(function (rev, i) {
         var card = el('div', 'rev-card');
         card.setAttribute('data-index', i);
+        var inner = el('div', 'rev-inner');
         var stars = el('div', 'rev-stars'); stars.innerHTML = STAR + STAR + STAR + STAR + STAR;
         var quote = el('p', 'rev-quote'); setText(quote, '“' + rev.quote + '”');
         var who = el('div', 'rev-who');
@@ -1303,7 +1325,8 @@
         var role = el('div', 'rev-role'); setText(role, rev.role);
         meta.appendChild(name); meta.appendChild(role);
         who.appendChild(avatar); who.appendChild(meta);
-        card.appendChild(stars); card.appendChild(quote); card.appendChild(who);
+        inner.appendChild(stars); inner.appendChild(quote); inner.appendChild(who);
+        card.appendChild(inner);
         container.appendChild(card);
       });
       if (window.__reviewsBuildDots) window.__reviewsBuildDots();

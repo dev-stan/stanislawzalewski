@@ -560,20 +560,26 @@
     font-size: clamp(26px,3.6vw,40px); font-weight: 800; letter-spacing: -0.02em;
     text-align: center; margin: 0 0 48px; line-height: 1.15;
   }
-  /* All cards share one grid cell, so the stage auto-sizes to the tallest
-     card at any viewport width - no fixed min-height needed, and only the
-     active card is interactive/visible. */
-  .reviews .stage { display: grid; }
+  /* Horizontal scroll-snap track: swipe with a thumb, or grab-and-drag with a
+     mouse (like the usługi row). Each card is a full-width snap point; the
+     scrollbar itself is hidden. */
+  .reviews .stage {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    gap: 20px; padding: 6px 4px; margin: -6px -4px;
+    -webkit-overflow-scrolling: touch; cursor: grab;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .reviews .stage::-webkit-scrollbar { display: none; }
+  .reviews .stage.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+  .reviews .stage.is-dragging .rev-card { user-select: none; }
   .reviews .rev-card {
-    grid-area: 1 / 1;
+    flex: 0 0 100%; scroll-snap-align: center;
     display: flex; flex-direction: column; justify-content: center;
     background: #FFFFFF; border: 1px solid rgba(23,20,15,0.1);
     border-radius: 20px; padding: 44px 48px;
     box-shadow: 0 18px 48px rgba(23,20,15,0.06);
-    opacity: 0; transform: translateY(16px); pointer-events: none;
-    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .reviews .rev-card.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .reviews .rev-card img, .reviews .rev-card svg { pointer-events: none; }
   .reviews .rev-stars { display: flex; gap: 4px; margin-bottom: 20px; color: #E0A100; }
   .reviews .rev-stars svg { width: 20px; height: 20px; }
   .reviews .rev-quote {
@@ -1125,16 +1131,16 @@
       },
       intro: {
         kicker: 'O mnie',
-        lead: 'Jestem freelancerem z Poznańskiego Strzeszyna. Buduję strony jednostronicowe, wielostronicowe i sklepy - w zasadzie wszystko, co webowe. Prowadzę projekt od pomysłu i projektu graficznego, przez wdrożenie na domenie, po dalszą opiekę i rozwój.',
+        lead: 'Jestem freelancerem z poznańskiego Strzeszyna. Buduję strony jedno i wielostronicowe oraz sklepy - w zasadzie wszystko, co webowe. Prowadzę projekt od pomysłu i projektu graficznego, przez wdrożenie domeny, po dalszą opiekę i rozwój.',
         servicesLabel: 'Usługi',
         casesLabel: 'Case Studies',
-        authorRole: 'Freelancer · inżynier webowy',
+        authorRole: 'freelancer · inżynier webowy',
         services: [
           {title:'Strony jednostronicowe', body:'Szybkie, konkretne landing page nastawione na jeden cel - realną konwersję.'},
           {title:'Strony wielostronicowe', body:'Pełne, uporządkowane serwisy - przemyślana treść, nawigacja i SEO.'},
           {title:'Niestandardowe rozwiązania', body:'Buduję pod Twoje potrzeby to, czego nie obsłużą gotowe szablony i wtyczki.'},
-          {title:'Email marketing', body:'Kampanie, dostarczalność i strategia bazy - tak, aby wiadomości trafiały do skrzynki, nie do spamu.'},
-          {title:'Konfiguracja techniczna', body:'Domeny, DNS, DKIM/SPF i hosting - całą warstwę techniczną biorę na siebie.'},
+          {title:'Email marketing', body:'Kampanie i dostarczalność - tak, aby wiadomości trafiały do skrzynki, nie do spamu.'},
+          {title:'Konfiguracja techniczna', body:'Domeny, DNS, DKIM/SPF i hosting - opieka nad całą warstwą techniczną.'},
           {title:'Podstawowe SEO', body:'Pomagam wejść wyżej w Google - zarówno nowym stronom, jak i tym już działającym.'}
         ],
         stackLabel: 'Stack',
@@ -1194,14 +1200,14 @@
         kicker: 'Opinie',
         title: 'Co mówią osoby, z którymi pracowałem',
         items: [
-          {quote:'Udało się odświezyć naszą starą stronę na Wordpress jeszcze przed sezonem letnim, dostałem efekt końcowy po tygodniu :)', name:'Olaf', role:'Dzieciaki na Dechy · Windsurfing', initials:'OL'},
+          {quote:'Udało się odświeżyć naszą starą stronę na Wordpress jeszcze przed sezonem letnim, dostałem efekt końcowy po tygodniu :)', name:'Olaf', role:'Dzieciaki na Dechy · Windsurfing', initials:'OL'},
           {quote:'Stachu zrobił z moich projektów stronę, która wygląda jak profesjonalne portfolio architektoniczne. Mam się czym pochwalić :)', name:'Borys', role:'Architekt · Portfolio', initials:'BŻ'},
-          {quote:'Po wspólnym ustaleniu design i paru poprawkach, efekt końcowy jest bardzo zadowalający.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'}
+          {quote:'Po wspólnym ustaleniu designu i paru poprawkach, efekt końcowy jest bardzo zadowalający.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'}
         ]
       },
       contact: {
         title: 'Masz projekt? Porozmawiajmy.',
-        body: 'Napisz w dwóch zdaniach, co planujesz - odezwę się szybko i powiem wprost, jak mogę pomóc. Standardowe strony i te bardziej nietypowe pomysły równie mile widziane.',
+        body: 'Napisz w dwóch zdaniach, co planujesz - odezwę się szybko i ustalimy jak mogę pomóc. Standardowe strony i te bardziej nietypowe pomysły są równie mile widziane.',
         emailLabel: 'Email', waLabel: 'WhatsApp'
       },
       footer: { rights: 'Zaprojektowane i zbudowane przeze mnie ;)' },
@@ -1286,7 +1292,7 @@
     } else if (path === 'reviews.items') {
       var STAR = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26 6.86.6-5.2 4.53 1.56 6.7L12 17.3 5.88 20.6l1.56-6.7-5.2-4.53 6.86-.6z"/></svg>';
       items.forEach(function (rev, i) {
-        var card = el('div', 'rev-card' + (i === 0 ? ' is-active' : ''));
+        var card = el('div', 'rev-card');
         card.setAttribute('data-index', i);
         var stars = el('div', 'rev-stars'); stars.innerHTML = STAR + STAR + STAR + STAR + STAR;
         var quote = el('p', 'rev-quote'); setText(quote, '“' + rev.quote + '”');
@@ -1605,7 +1611,10 @@
     });
   })();
 
-  // Reviews - single card on screen, auto-revolving, with dot controls.
+  // Reviews - a horizontal scroll-snap track. Swipe with a thumb, or grab and
+  // drag with a mouse (same feel as the usługi row). Autoplay nudges to the
+  // next card and pauses while the user is interacting. Dots mirror position
+  // and jump on click.
   (function () {
     var stage = document.querySelector('.reviews .stage');
     var dotsWrap = document.querySelector('.reviews .rev-dots');
@@ -1614,29 +1623,96 @@
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     var current = 0, timer = null;
     var DELAY = 6000;
+    var interacting = false; // hover / focus / active drag - pauses autoplay
 
     function cards() { return stage.querySelectorAll('.rev-card'); }
 
-    function show(i) {
+    // Index of the card whose centre is nearest the viewport centre.
+    function activeIndex() {
       var list = cards();
-      if (!list.length) return;
-      current = (i + list.length) % list.length;
-      list.forEach(function (c, idx) { c.classList.toggle('is-active', idx === current); });
-      dotsWrap.querySelectorAll('button').forEach(function (b, idx) {
-        var on = idx === current;
+      if (!list.length) return 0;
+      var mid = stage.scrollLeft + stage.clientWidth / 2;
+      var best = 0, bestDist = Infinity;
+      list.forEach(function (c, i) {
+        var cMid = c.offsetLeft + c.offsetWidth / 2;
+        var d = Math.abs(cMid - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      return best;
+    }
+
+    function updateDots() {
+      current = activeIndex();
+      dotsWrap.querySelectorAll('button').forEach(function (b, i) {
+        var on = i === current;
         b.classList.toggle('is-active', on);
         b.setAttribute('aria-selected', on ? 'true' : 'false');
       });
     }
 
-    function next() { show(current + 1); }
+    function scrollToCard(i, smooth) {
+      var list = cards();
+      if (!list.length) return;
+      i = (i + list.length) % list.length;
+      var c = list[i];
+      var left = c.offsetLeft - (stage.clientWidth - c.offsetWidth) / 2;
+      stage.scrollTo({ left: left, behavior: smooth === false ? 'auto' : 'smooth' });
+    }
+
+    function next() { scrollToCard(current + 1, true); }
 
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
     function start() {
       stop();
-      if (reduce.matches || cards().length < 2) return;
+      if (reduce.matches || interacting || cards().length < 2) return;
       timer = setInterval(next, DELAY);
     }
+
+    // Keep dots in sync with scrolling (native swipe, drag, or programmatic).
+    var raf = null;
+    stage.addEventListener('scroll', function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = null; updateDots(); });
+    }, { passive: true });
+
+    // Pause autoplay while the pointer is over the track or focus is inside it.
+    stage.addEventListener('pointerenter', function () { interacting = true; stop(); });
+    stage.addEventListener('pointerleave', function () { interacting = false; start(); });
+    stage.addEventListener('focusin', function () { interacting = true; stop(); });
+    stage.addEventListener('focusout', function () { interacting = false; start(); });
+
+    // --- mouse drag-to-scroll (touch already scrolls natively) ---
+    var dragging = false, startX = 0, startScroll = 0, moved = 0, pointerId = null;
+    stage.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return; // let native touch scrolling handle it
+      if (e.button != null && e.button !== 0) return;
+      dragging = true; moved = 0;
+      startX = e.clientX; startScroll = stage.scrollLeft;
+      pointerId = e.pointerId;
+      stage.classList.add('is-dragging');
+      try { stage.setPointerCapture(pointerId); } catch (err) {}
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      stage.scrollLeft = startScroll - dx;
+    });
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      stage.classList.remove('is-dragging');
+      if (pointerId != null) { try { stage.releasePointerCapture(pointerId); } catch (err) {} pointerId = null; }
+      // Settle onto the nearest card, then resume autoplay if idle.
+      scrollToCard(activeIndex(), true);
+    }
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
+    // Suppress the click that follows a real drag.
+    stage.addEventListener('click', function (e) {
+      if (moved > 5) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+    stage.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     // Rebuilt each time renderList repaints the cards (initial load + lang switch).
     window.__reviewsBuildDots = function () {
@@ -1647,16 +1723,14 @@
         b.type = 'button';
         b.setAttribute('role', 'tab');
         b.setAttribute('aria-label', 'Review ' + (i + 1));
-        b.addEventListener('click', function () { show(i); start(); });
+        b.addEventListener('click', function () { scrollToCard(i, true); });
         dotsWrap.appendChild(b);
       });
       current = Math.min(current, Math.max(0, list.length - 1));
-      show(current);
+      scrollToCard(current, false);
+      updateDots();
       start();
     };
-
-    stage.addEventListener('mouseenter', stop);
-    stage.addEventListener('mouseleave', start);
 
     // renderList already ran during render(); build dots for the current cards.
     window.__reviewsBuildDots();

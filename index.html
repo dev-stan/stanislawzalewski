@@ -548,6 +548,58 @@
     .intro-block .services-dots .dot.is-active { background: rgba(23,20,15,0.75); }
   }
 
+  /* Reviews / Social proof */
+  .reviews { background: #FAF9F6; color: #17140F; padding: 104px 40px 112px; border-top: 1px solid rgba(23,20,15,0.08); }
+  .reviews .inner { max-width: 900px; margin: 0 auto; }
+  .reviews .kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(23,20,15,0.5);
+    text-align: center; margin-bottom: 14px;
+  }
+  .reviews .rev-title {
+    font-size: clamp(26px,3.6vw,40px); font-weight: 800; letter-spacing: -0.02em;
+    text-align: center; margin: 0 0 48px; line-height: 1.15;
+  }
+  .reviews .stage { position: relative; min-height: 260px; }
+  .reviews .rev-card {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    background: #FFFFFF; border: 1px solid rgba(23,20,15,0.1);
+    border-radius: 20px; padding: 44px 48px;
+    box-shadow: 0 18px 48px rgba(23,20,15,0.06);
+    opacity: 0; transform: translateY(16px); pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reviews .rev-card.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .reviews .rev-stars { display: flex; gap: 4px; margin-bottom: 20px; color: #E0A100; }
+  .reviews .rev-stars svg { width: 20px; height: 20px; }
+  .reviews .rev-quote {
+    font-family: 'Playfair Display', serif; font-weight: 500;
+    font-size: clamp(18px,2.1vw,23px); line-height: 1.5; margin: 0 0 28px;
+    color: #17140F;
+  }
+  .reviews .rev-who { display: flex; align-items: center; gap: 14px; }
+  .reviews .rev-avatar {
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: #FAF9F6;
+    background: oklch(53.139% 0.12465 241.363);
+  }
+  .reviews .rev-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .reviews .rev-role { font-size: 13px; color: rgba(23,20,15,0.55); margin-top: 2px; }
+  .reviews .rev-dots { display: flex; justify-content: center; gap: 10px; margin-top: 36px; }
+  .reviews .rev-dots button {
+    width: 9px; height: 9px; border-radius: 50%; padding: 0; cursor: pointer;
+    border: none; background: rgba(23,20,15,0.18); transition: background 0.2s ease, width 0.2s ease;
+  }
+  .reviews .rev-dots button.is-active { background: oklch(53.139% 0.12465 241.363); width: 26px; border-radius: 999px; }
+  @media (max-width: 640px) {
+    .reviews { padding: 72px 20px 80px; }
+    .reviews .rev-title { margin-bottom: 32px; }
+    .reviews .stage { min-height: 320px; }
+    .reviews .rev-card { padding: 32px 26px; position: relative; }
+  }
+
   /* Contact */
   .contact { background: #17140F; color: #FAF9F6; padding: 100px 40px 48px; }
   .contact .inner { max-width: 1080px; margin: 0 auto; }
@@ -916,6 +968,16 @@
   </div><!-- /.cases-track -->
 </div><!-- /.cases-carousel -->
 
+<!-- 6. REVIEWS / SOCIAL PROOF -->
+<section class="reviews reveal">
+  <div class="inner">
+    <div class="kicker" data-i18n="reviews.kicker"></div>
+    <h2 class="rev-title" data-i18n="reviews.title"></h2>
+    <div class="stage" data-list="reviews.items"></div>
+    <div class="rev-dots" role="tablist" aria-label="Reviews"></div>
+  </div>
+</section>
+
 <!-- 7. CONTACT -->
 <footer class="contact" id="contact">
   <div class="inner">
@@ -1028,6 +1090,15 @@
           {num:'03', label:'Result', caption:'Ready for the studio review, MMXXIV.'}
         ]
       },
+      reviews: {
+        kicker: 'What clients say',
+        title: 'Kind words from people I’ve built for',
+        items: [
+          {quote:'Stan turned my architecture portfolio into something that finally looks the part. Clean, fast, and he actually listened to what I wanted.', name:'Borys Żukowski', role:'Architect · portfolio site', initials:'BŻ'},
+          {quote:'Booking flow works, the site is quick, and every question got a straight answer the same day. Easy to recommend.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'},
+          {quote:'He got the vibe of our D&D group without me over-explaining it. Delivered on time and it just works.', name:'Olaf', role:'D&D community site', initials:'OL'}
+        ]
+      },
       contact: {
         title: 'Have a project? Let’s talk.',
         body: 'Tell me in two sentences what you have in mind - I’ll get back to you quickly and say plainly how I can help. Standard sites and the more unusual ideas equally welcome.',
@@ -1109,6 +1180,15 @@
           {num:'01', label:'Brief', caption:'Układ oparty na indeksie, bez zbędnych ozdobników.'},
           {num:'02', label:'Budowa', caption:'Siatka zapożyczona wprost z plansz architektonicznych.'},
           {num:'03', label:'Efekt', caption:'Gotowe na obronę przed komisją, MMXXIV.'}
+        ]
+      },
+      reviews: {
+        kicker: 'Opinie',
+        title: 'Co mówią osoby, dla których pracowałem',
+        items: [
+          {quote:'Udało się odświezyć naszą starą stronę na Wordpress jeszcze przed sezonem letnim, dostałem efekt końcowy po tygodniu :)', name:'Olaf', role:'Strona społeczności D&D', initials:'OL'},
+          {quote:'Stachu zrobił z mojego portfolio architektonicznego stronę, która wreszcie wygląda jak trzeba. Mam się czym pochwalić :)', name:'Borys Żukowski', role:'Architekt · portfolio', initials:'BŻ'},
+          {quote:'Po wspólnym ustaleniu design i paru poprawkach, efekt końcowy jest bardzo zadowalający.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'}
         ]
       },
       contact: {
@@ -1195,6 +1275,24 @@
         wrap.appendChild(num); wrap.appendChild(body);
         container.appendChild(wrap);
       });
+    } else if (path === 'reviews.items') {
+      var STAR = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26 6.86.6-5.2 4.53 1.56 6.7L12 17.3 5.88 20.6l1.56-6.7-5.2-4.53 6.86-.6z"/></svg>';
+      items.forEach(function (rev, i) {
+        var card = el('div', 'rev-card' + (i === 0 ? ' is-active' : ''));
+        card.setAttribute('data-index', i);
+        var stars = el('div', 'rev-stars'); stars.innerHTML = STAR + STAR + STAR + STAR + STAR;
+        var quote = el('p', 'rev-quote'); setText(quote, '“' + rev.quote + '”');
+        var who = el('div', 'rev-who');
+        var avatar = el('div', 'rev-avatar'); setText(avatar, rev.initials);
+        var meta = el('div');
+        var name = el('div', 'rev-name'); setText(name, rev.name);
+        var role = el('div', 'rev-role'); setText(role, rev.role);
+        meta.appendChild(name); meta.appendChild(role);
+        who.appendChild(avatar); who.appendChild(meta);
+        card.appendChild(stars); card.appendChild(quote); card.appendChild(who);
+        container.appendChild(card);
+      });
+      if (window.__reviewsBuildDots) window.__reviewsBuildDots();
     } else if (path === 'zukowski.plates') {
       items.forEach(function (plate) {
         var wrap = el('div', 'plate');
@@ -1497,6 +1595,63 @@
     document.getElementById('langBtn').addEventListener('click', function () {
       setTimeout(function () { buildPills(); updateActive(); }, 0);
     });
+  })();
+
+  // Reviews - single card on screen, auto-revolving, with dot controls.
+  (function () {
+    var stage = document.querySelector('.reviews .stage');
+    var dotsWrap = document.querySelector('.reviews .rev-dots');
+    if (!stage || !dotsWrap) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var current = 0, timer = null;
+    var DELAY = 6000;
+
+    function cards() { return stage.querySelectorAll('.rev-card'); }
+
+    function show(i) {
+      var list = cards();
+      if (!list.length) return;
+      current = (i + list.length) % list.length;
+      list.forEach(function (c, idx) { c.classList.toggle('is-active', idx === current); });
+      dotsWrap.querySelectorAll('button').forEach(function (b, idx) {
+        var on = idx === current;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+    }
+
+    function next() { show(current + 1); }
+
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      stop();
+      if (reduce.matches || cards().length < 2) return;
+      timer = setInterval(next, DELAY);
+    }
+
+    // Rebuilt each time renderList repaints the cards (initial load + lang switch).
+    window.__reviewsBuildDots = function () {
+      var list = cards();
+      dotsWrap.innerHTML = '';
+      list.forEach(function (c, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Review ' + (i + 1));
+        b.addEventListener('click', function () { show(i); start(); });
+        dotsWrap.appendChild(b);
+      });
+      current = Math.min(current, Math.max(0, list.length - 1));
+      show(current);
+      start();
+    };
+
+    stage.addEventListener('mouseenter', stop);
+    stage.addEventListener('mouseleave', start);
+
+    // renderList already ran during render(); build dots for the current cards.
+    window.__reviewsBuildDots();
   })();
 
   // Lightbox - click any screenshot to inspect it full-size.

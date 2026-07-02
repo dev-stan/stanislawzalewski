@@ -82,11 +82,6 @@
   /* Hero */
   .hero { position: relative; overflow: hidden; }
   .hero-inner { position: relative; z-index: 1; padding: 120px 40px 100px; max-width: 1040px; margin: 0 auto; }
-  .hero-kicker {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: oklch(53.139% 0.12465 241.363); margin-bottom: 28px;
-  }
   .hero h1 {
     font-size: clamp(32px, 4.8vw, 64px); line-height: 1.05;
     letter-spacing: -0.03em; font-weight: 800; margin: 0 0 32px; max-width: 640px;
@@ -556,7 +551,7 @@
     .nav { gap: 14px; }
     .nav a { font-size: 11px; letter-spacing: 0.03em; }
     .lang-btn { padding: 6px 10px; }
-    .hero-inner { padding: 80px 20px 64px; }
+    .hero-inner { padding: 48px 20px 64px; }
     .kotowski, .dzieciaki, .italy, .zukowski { padding-top: 72px; padding-bottom: 72px; padding-left: 20px; padding-right: 20px; }
     .contact { padding: 72px 20px 40px; }
     .kotowski .grid { grid-template-columns: 1fr; gap: 32px; }
@@ -674,7 +669,6 @@
     </svg>
   </div>
   <div class="hero-inner">
-    <div class="hero-kicker" data-i18n="hero.kicker"></div>
     <h1 data-i18n="hero.headline"></h1>
     <p class="hero-sub" data-i18n="hero.sub"></p>
     <div class="hero-stat">
@@ -938,7 +932,6 @@
   var translations = {
     en: {
       hero: {
-        kicker: 'Portfolio - 2026',
         headline: 'Websites that grow your business.',
         sub: 'Freelance web engineer. Fast, reliable and in constant contact - from the idea, through the design, to the domain and ongoing care.',
         statA: 'Sites shipped for real clients',
@@ -1022,7 +1015,6 @@
     },
     pl: {
       hero: {
-        kicker: 'Portfolio - 2026',
         headline: 'Strony internetowe, które rozwijają Twój biznes.',
         sub: 'Freelancer, inżynier webowy. Szybko, rzetelnie i w stałym kontakcie - od pomysłu, przez projekt, po domenę i dalszą opiekę.',
         statA: 'Strony wdrożone dla realnych klientów',

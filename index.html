@@ -560,9 +560,12 @@
     font-size: clamp(26px,3.6vw,40px); font-weight: 800; letter-spacing: -0.02em;
     text-align: center; margin: 0 0 48px; line-height: 1.15;
   }
-  .reviews .stage { position: relative; min-height: 260px; }
+  /* All cards share one grid cell, so the stage auto-sizes to the tallest
+     card at any viewport width - no fixed min-height needed, and only the
+     active card is interactive/visible. */
+  .reviews .stage { display: grid; }
   .reviews .rev-card {
-    position: absolute; inset: 0;
+    grid-area: 1 / 1;
     display: flex; flex-direction: column; justify-content: center;
     background: #FFFFFF; border: 1px solid rgba(23,20,15,0.1);
     border-radius: 20px; padding: 44px 48px;
@@ -596,8 +599,13 @@
   @media (max-width: 640px) {
     .reviews { padding: 72px 20px 80px; }
     .reviews .rev-title { margin-bottom: 32px; }
-    .reviews .stage { min-height: 320px; }
-    .reviews .rev-card { padding: 32px 26px; position: relative; }
+    .reviews .rev-card { padding: 32px 26px; }
+    .reviews .rev-quote { font-size: 17px; }
+    .reviews .rev-dots { margin-top: 28px; }
+  }
+  @media (max-width: 380px) {
+    .reviews .rev-card { padding: 28px 22px; }
+    .reviews .rev-quote { font-size: 16px; }
   }
 
   /* Contact */
@@ -1094,9 +1102,9 @@
         kicker: 'What clients say',
         title: 'Kind words from people I’ve built for',
         items: [
-          {quote:'Stan turned my architecture portfolio into something that finally looks the part. Clean, fast, and he actually listened to what I wanted.', name:'Borys Żukowski', role:'Architect · portfolio site', initials:'BŻ'},
-          {quote:'Booking flow works, the site is quick, and every question got a straight answer the same day. Easy to recommend.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'},
-          {quote:'He got the vibe of our D&D group without me over-explaining it. Delivered on time and it just works.', name:'Olaf', role:'D&D community site', initials:'OL'}
+          {quote:'We managed to refresh our old WordPress site before the summer season - I had the finished result within a week :)', name:'Olaf', role:'Dzieciaki na Dechy · Windsurfing', initials:'OL'},
+          {quote:'Stan turned my projects into a site that looks like a proper architecture portfolio. Now I have something to show off :)', name:'Borys Żukowski', role:'Architect · portfolio', initials:'BŻ'},
+          {quote:'After agreeing on the design together and a few tweaks, the final result is really satisfying.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'}
         ]
       },
       contact: {
@@ -1184,10 +1192,10 @@
       },
       reviews: {
         kicker: 'Opinie',
-        title: 'Co mówią osoby, dla których pracowałem',
+        title: 'Co mówią osoby, z którymi pracowałem',
         items: [
-          {quote:'Udało się odświezyć naszą starą stronę na Wordpress jeszcze przed sezonem letnim, dostałem efekt końcowy po tygodniu :)', name:'Olaf', role:'Strona społeczności D&D', initials:'OL'},
-          {quote:'Stachu zrobił z mojego portfolio architektonicznego stronę, która wreszcie wygląda jak trzeba. Mam się czym pochwalić :)', name:'Borys Żukowski', role:'Architekt · portfolio', initials:'BŻ'},
+          {quote:'Udało się odświezyć naszą starą stronę na Wordpress jeszcze przed sezonem letnim, dostałem efekt końcowy po tygodniu :)', name:'Olaf', role:'Dzieciaki na Dechy · Windsurfing', initials:'OL'},
+          {quote:'Stachu zrobił z moich projektów stronę, która wygląda jak profesjonalne portfolio architektoniczne. Mam się czym pochwalić :)', name:'Borys', role:'Architekt · Portfolio', initials:'BŻ'},
           {quote:'Po wspólnym ustaleniu design i paru poprawkach, efekt końcowy jest bardzo zadowalający.', name:'Piotr', role:'Tastes of Italy Travel', initials:'PT'}
         ]
       },

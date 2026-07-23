@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melbourne Driving School — Auto &amp; Manual Driving Lessons Across Melbourne</title>
+<meta name="description" content="Government-accredited driving instructors teaching automatic and manual lessons in every Melbourne suburb, operating from 9 VicRoads test centres. Competency-based lessons, male &amp; female instructors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brown:#6e3b3b;
+    --ink:#3a2a12;
+    --body:#4a3a2e;
+    --olive:#7e7f2e;
+    --gold:#efb70c;
+    --gold-light:#f7ce27;
+    --gold-bright:#f4c518;
+    --tan:#8a5a1a;
+    --red:#d3241e;
+    --cream:#fdfae4;
+    --cream-light:#fffdf0;
+    --cream-deep:#f6f0cd;
+    --line:rgba(126,127,46,.22);
+    --shell:1180px;
+    --gutter:clamp(20px,5vw,48px);
+    --section-y:clamp(44px,6vw,76px);
+    --radius:16px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--body);
+    font-family:'Source Sans 3',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -webkit-text-size-adjust:100%;
+    overflow-x:hidden;
+  }
+
+  a{color:#8a6d10;text-decoration:none}
+  a:hover{color:var(--brown)}
+
+  h1,h2,h3{font-family:'Poppins',sans-serif;color:var(--brown);margin:0}
+  p{margin:0}
+
+  img{max-width:100%;display:block}
+
+  /* ---------- layout primitives ---------- */
+
+  .shell{
+    width:100%;
+    max-width:var(--shell);
+    margin-inline:auto;
+    padding-inline:var(--gutter);
+  }
+
+  .section{padding-block:var(--section-y)}
+
+  .section-head{margin-bottom:clamp(24px,3vw,38px)}
+
+  .h2{
+    font-weight:800;
+    font-size:clamp(24px,3vw,32px);
+    line-height:1.2;
+    margin:0;
+  }
+
+  .lede{
+    font-size:clamp(15px,1.4vw,17px);
+    line-height:1.65;
+    color:var(--body);
+    max-width:64ch;
+    margin-top:10px;
+  }
+
+  .grid{display:grid;gap:clamp(14px,2vw,22px)}
+  .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    line-height:1.2;
+    padding:14px 26px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 8px 20px rgba(211,36,30,.28)}
+  .btn-red:hover{color:#fff;box-shadow:0 10px 24px rgba(211,36,30,.34)}
+  .btn-ghost{background:#fff;color:var(--brown);border:2px solid var(--gold);padding:12px 24px}
+  .btn-ghost:hover{color:var(--brown)}
+
+  .card{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:clamp(20px,2.4vw,26px);
+  }
+
+  /* ---------- top bar ---------- */
+
+  .topbar{
+    background:linear-gradient(180deg,var(--gold-light),var(--gold));
+  }
+  .topbar-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding-block:12px;
+    flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}
+  .badge{
+    height:52px;width:auto;flex:none;
+    display:block;object-fit:contain;
+  }
+  .brand-name{
+    font-family:'Poppins',sans-serif;font-weight:800;
+    font-size:clamp(17px,2vw,22px);color:var(--ink);line-height:1.1;
+  }
+  .brand-tag{
+    font-family:'Poppins',sans-serif;font-weight:600;
+    font-size:clamp(9.5px,1vw,11.5px);color:var(--tan);
+    letter-spacing:.06em;margin-top:3px;
+  }
+  .topbar-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .btn-phone{
+    background:#fff;color:var(--brown);
+    font-size:15px;padding:9px 16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+  .btn-phone:hover{color:var(--brown)}
+  .btn-book-sm{font-size:14.5px;padding:10px 20px}
+
+  /* ---------- nav ---------- */
+
+  .nav{background:var(--cream);border-bottom:1px solid rgba(126,127,46,.2)}
+  .nav-inner{
+    display:flex;
+    gap:clamp(14px,2.2vw,28px);
+    padding-block:12px;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .nav-inner::-webkit-scrollbar{display:none}
+  .nav-inner a{white-space:nowrap;padding-block:2px}
+  .nav-inner a[aria-current]{color:var(--brown)}
+
+  /* ---------- hero ---------- */
+
+  .hero{background:radial-gradient(120% 140% at 0% 0%,var(--cream-light),#f8f2cf)}
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:clamp(28px,4vw,56px);
+    align-items:center;
+    padding-block:clamp(40px,5.5vw,72px);
+  }
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#eef0cf;color:var(--olive);
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;
+    padding:6px 14px;border-radius:999px;letter-spacing:.03em;
+  }
+  .hero h1{
+    font-weight:800;
+    font-size:clamp(30px,4.4vw,50px);
+    line-height:1.08;
+    letter-spacing:-.01em;
+    margin:16px 0 0;
+    max-width:16ch;
+  }
+  .hero-copy{
+    font-size:clamp(15.5px,1.5vw,17.5px);
+    line-height:1.62;
+    margin-top:16px;
+    max-width:46ch;
+  }
+  .hero-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .hero-rating{
+    display:flex;align-items:center;gap:10px;
+    margin-top:24px;flex-wrap:wrap;
+    font-size:14px;color:var(--body);
+  }
+  .stars{color:#f5a623;letter-spacing:2px}
+
+  .hero-media{position:relative;max-width:420px;width:100%;margin-inline:auto}
+  .hero-img{
+    /* portrait source in a landscape frame — bias the crop up so the
+       subject stays in view rather than centring on the car body.
+       height:auto is set explicitly to beat the width/height attributes,
+       which would otherwise hold the image at its intrinsic 4:5. */
+    width:100%;
+    height:auto;
+    aspect-ratio:5/4;
+    object-fit:cover;
+    object-position:50% 26%;
+    border-radius:18px;
+    box-shadow:0 18px 40px rgba(84,74,20,.24);
+  }
+  .plates{position:absolute;top:-14px;right:-10px;display:flex;gap:8px}
+  .plate{
+    width:42px;height:42px;border-radius:10px;
+    font-family:'Poppins',sans-serif;font-weight:800;font-size:24px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px rgba(0,0,0,.2);
+  }
+  .plate-l{background:var(--gold-bright);color:#111;transform:rotate(-8deg)}
+  .plate-p{background:#fff;color:var(--red);transform:rotate(6deg)}
+
+  /* ---------- trust strip ---------- */
+
+  .trust{border-block:1px solid rgba(126,127,46,.2);background:var(--cream)}
+  .trust-inner{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    column-gap:clamp(12px,2vw,28px);
+  }
+  .trust-item{
+    padding:22px 0;
+    text-align:center;
+    position:relative;
+  }
+  /* dividers sit in the gap so cell text stays aligned to the shell gutter */
+  .trust-item+.trust-item::before{
+    content:"";
+    position:absolute;
+    left:calc(-1 * clamp(6px,1vw,14px));
+    top:18px;bottom:18px;
+    width:1px;
+    background:rgba(126,127,46,.25);
+  }
+  .trust-num{
+    font-family:'Poppins',sans-serif;font-weight:800;
+    font-size:clamp(18px,2.1vw,23px);color:var(--brown);
+    line-height:1.2;
+  }
+  .trust-label{font-size:13px;color:var(--olive);margin-top:4px;line-height:1.45}
+
+  /* ---------- feature cards ---------- */
+
+  .feature-icon{font-size:26px;line-height:1}
+  .feature-card h3{
+    font-weight:700;font-size:clamp(16px,1.7vw,18px);
+    margin:10px 0 6px;
+  }
+  .feature-card p{font-size:14.5px;line-height:1.55}
+
+  /* ---------- services ---------- */
+
+  .service{
+    background:#fff;
+    border-radius:12px;
+    padding:15px 18px;
+    font-weight:600;
+    color:var(--brown);
+    font-size:15px;
+    border-left:4px solid var(--gold-bright);
+  }
+  .service-b{border-left-color:var(--olive)}
+  .service-c{border-left-color:var(--red)}
+
+  /* ---------- steps ---------- */
+
+  .step-num{
+    width:40px;height:40px;border-radius:999px;
+    background:var(--gold-bright);color:var(--ink);
+    font-family:'Poppins',sans-serif;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step-num-last{background:var(--red);color:#fff}
+  .step h3{font-weight:700;font-size:16px;margin:12px 0 4px}
+  .step p{font-size:14px;line-height:1.55}
+
+  /* ---------- suburbs ---------- */
+
+  .suburbs{background:var(--olive);color:var(--cream)}
+  .suburbs .h2{color:var(--cream)}
+  .suburbs .lede{color:var(--cream);opacity:.9}
+  .suburbs-box{
+    background:rgba(0,0,0,.14);
+    border:1px solid rgba(253,250,228,.28);
+    border-radius:var(--radius);
+    padding:clamp(20px,2.6vw,28px);
+  }
+  .suburbs-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--gold-bright);color:var(--ink);
+    font-family:'Poppins',sans-serif;font-weight:800;
+    font-size:12.5px;letter-spacing:.06em;line-height:1.35;
+    padding:6px 14px;border-radius:999px;margin-bottom:14px;
+    text-wrap:balance;
+  }
+  .suburbs-note{margin-bottom:16px;opacity:.85;font-size:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(253,250,228,.15);
+    border:1px solid rgba(253,250,228,.35);
+    padding:8px 16px;border-radius:999px;
+    font-weight:600;font-size:14px;
+  }
+
+  /* ---------- testimonials ---------- */
+
+  .testimonial-head{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;
+  }
+  .testimonial-card p{font-size:14.5px;line-height:1.55;margin:10px 0 14px}
+  .testimonial-name{font-weight:700;color:var(--brown);font-size:14px}
+
+  /* ---------- FAQ ---------- */
+
+  details{background:#fff;border-radius:12px;padding:16px 20px}
+  details>summary{
+    list-style:none;cursor:pointer;
+    font-family:'Poppins',sans-serif;font-weight:700;
+    color:var(--brown);
+    display:flex;justify-content:space-between;align-items:center;gap:14px;
+    font-size:15.5px;line-height:1.4;
+  }
+  details>summary::-webkit-details-marker{display:none}
+  .faq-mark{color:var(--gold);font-size:20px;flex:none;line-height:1}
+  details[open] .faq-mark{transform:rotate(45deg)}
+  details p{margin-top:12px;font-size:14.5px;line-height:1.55}
+
+  /* ---------- CTA ---------- */
+
+  .cta{
+    background:linear-gradient(180deg,var(--gold-light),var(--gold));
+    text-align:center;
+  }
+  .cta h2{font-weight:800;font-size:clamp(25px,3.4vw,34px);color:var(--ink);margin:0 0 10px;line-height:1.2}
+  .cta p{color:#5a4212;font-size:clamp(15px,1.5vw,17px);margin:0 0 24px}
+  .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .cta-actions .btn{font-size:17px;padding:15px 30px}
+
+  /* ---------- footer ---------- */
+
+  .footer{background:#6b6b26;color:#e9e6c2;font-size:13px}
+  .footer-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:14px;flex-wrap:wrap;padding-block:20px;
+  }
+  .footer-links{display:flex;gap:18px;flex-wrap:wrap}
+  .footer a{color:#e9e6c2}
+  .footer a:hover{color:#fff}
+
+  /* ---------- breakpoints ---------- */
+
+  /* keep the hero two-up through tablet — just tighten the column ratio */
+  @media (max-width:980px){
+    .hero-inner{grid-template-columns:1.1fr .9fr;gap:clamp(24px,3.2vw,36px)}
+    .hero-media{max-width:360px}
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+
+  @media (max-width:760px){
+    .hero-inner{grid-template-columns:1fr;gap:32px}
+    .hero h1,.hero-copy{max-width:none}
+    .hero-media{max-width:440px}
+  }
+
+  @media (max-width:820px){
+    .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .trust-inner{grid-template-columns:repeat(2,minmax(0,1fr))}
+    /* only the 2nd column keeps a divider; row 2 gets a top rule instead */
+    .trust-item:nth-child(odd)::before{display:none}
+    .trust-item:nth-child(n+3){border-top:1px solid rgba(126,127,46,.2)}
+  }
+
+  @media (max-width:640px){
+    .topbar-inner{
+      flex-direction:column;
+      align-items:stretch;
+      gap:14px;
+      padding-block:14px;
+    }
+    .brand{justify-content:center;text-align:left}
+    .topbar-actions{justify-content:center;width:100%}
+    .topbar-actions .btn{flex:1 1 auto}
+    .hero-actions .btn{flex:1 1 100%}
+    .grid-3{grid-template-columns:1fr}
+    .hero-img{aspect-ratio:4/3}
+    .plates{top:-10px;right:0}
+    .testimonial-head{gap:10px}
+    .footer-inner{justify-content:center;text-align:center;flex-direction:column}
+    /* too long to stay a pill — drop to a squared label rule instead of a wrapped lozenge */
+    .suburbs-tag{
+      display:block;
+      border-radius:8px;
+      padding:8px 12px;
+      letter-spacing:.04em;
+      text-wrap:pretty;
+    }
+  }
+
+  @media (max-width:420px){
+    .grid-4{grid-template-columns:1fr}
+    .trust-inner{grid-template-columns:1fr}
+    .trust-item::before{display:none}
+    .trust-item+.trust-item{border-top:1px solid rgba(126,127,46,.2)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .btn{transition:none}
+    .btn:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CONCEPT NOTICE (portfolio only - not part of the design) ===== -->
+<div style="position:relative;z-index:9999;background:#C1121F;color:#fff;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
+  <div style="max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;text-align:center;">
+    <span style="font-size:14px;line-height:1.45;font-weight:500;">
+      This is a design concept &mdash; not a live website. Content and details are still being worked on.
+    </span>
+    <a href="/designs/index.html" style="flex-shrink:0;display:inline-block;background:#fff;color:#C1121F;font-size:13px;font-weight:700;line-height:1;text-decoration:none;padding:8px 14px;border-radius:999px;white-space:nowrap;">
+      See all current projects &rarr;
+    </a>
+  </div>
+</div>
+
+
+<!-- top bar -->
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <div class="brand">
+      <img src="media/logo.gif" alt="ADTA — Safe Drivers for Life" class="badge">
+      <div>
+        <div class="brand-name">Melbourne Driving School</div>
+        <div class="brand-tag">PATIENCE &amp; PROFESSIONALISM</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <a href="tel:0414771101" class="btn btn-phone">📞 0414 771 101</a>
+      <a href="#book" class="btn btn-red btn-book-sm">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<!-- nav -->
+<nav class="nav">
+  <div class="shell nav-inner">
+    <a href="#" aria-current="page">Home</a>
+    <a href="#">About</a>
+    <a href="#">Our Services</a>
+    <a href="#">Licence Assessment</a>
+    <a href="#">Testimonials</a>
+    <a href="#">FAQs</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<!-- hero -->
+<section class="hero">
+  <div class="shell hero-inner">
+    <div>
+      <div class="pill">✔ Government accredited instructors</div>
+      <h1>Get your Victorian licence, the confident way.</h1>
+      <p class="hero-copy">Automatic &amp; manual driving lessons across every Melbourne suburb — including the VicRoads test centres. Competency-based lessons tailored to your goals, confidence and experience.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn btn-red">Book a lesson</a>
+        <a href="tel:0414771101" class="btn btn-ghost">Call 0414 771 101</a>
+      </div>
+      <div class="hero-rating">
+        <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#4285F4">G</span>
+        <span class="stars">★★★★★</span>
+        <span>Rated 5.0 on Google Reviews</span>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img class="hero-img" src="media/melb-driving-hero.jpg" width="810" height="1080" alt="A learner driver smiling beside a car, holding a congratulations certificate after passing their driving test." fetchpriority="high" decoding="async">
+      <div class="plates" aria-hidden="true">
+        <span class="plate plate-l">L</span>
+        <span class="plate plate-p">P</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- trust strip -->
+<div class="trust">
+  <div class="shell trust-inner">
+    <div class="trust-item">
+      <div class="trust-num">96–98%</div>
+      <div class="trust-label">First-time pass rate vs 45–55% state avg</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">Male &amp; female</div>
+      <div class="trust-label">Accredited instructors</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">Auto &amp; manual</div>
+      <div class="trust-label">Late-model dual-control cars</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">5.0 ★</div>
+      <div class="trust-label">Rated on Google Reviews</div>
+    </div>
+  </div>
+</div>
+
+<!-- why choose -->
+<section class="section" style="background:var(--cream-light)">
+  <div class="shell">
+    <div class="section-head">
+      <h2 class="h2">Why learners choose us</h2>
+      <p class="lede">Melbourne's leading driving school with a caring team of highly experienced, government-accredited instructors — with the knowledge to get your Victorian licence in the shortest possible timeframe.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Competency-based lessons</h3>
+        <p>Personally designed to your needs, goals, confidence and experience — tracked against our exclusive checklist.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="feature-icon">💛</div>
+        <h3>Patient &amp; professional</h3>
+        <p>Friendly, relaxed and courteous instruction so you progress at your own pace — safety and patience at all times.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="feature-icon">🚗</div>
+        <h3>Fully-equipped cars</h3>
+        <p>Late-model, air-conditioned, dual-pedal vehicles — comprehensively insured for your peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- services -->
+<section class="section" style="background:var(--cream-deep)">
+  <div class="shell">
+    <div class="section-head">
+      <h2 class="h2">Our services &amp; specialities</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="service">New learner drivers</div>
+      <div class="service">Nervous &amp; anxious learners</div>
+      <div class="service">Adult-aged learners</div>
+      <div class="service service-b">International students</div>
+      <div class="service service-b">Overseas licence conversions</div>
+      <div class="service service-b">Female driving instructors</div>
+      <div class="service service-c">Refresher driving lessons</div>
+      <div class="service service-c">Intensive / express test prep</div>
+      <div class="service service-c">Package deals &amp; gift vouchers</div>
+    </div>
+  </div>
+</section>
+
+<!-- how it works -->
+<section class="section" style="background:var(--cream-light)">
+  <div class="shell">
+    <div class="section-head">
+      <h2 class="h2">How it works</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Call or book online</h3>
+        <p>Ring 0414 771 101 and tell us your goals.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Licence assessment</h3>
+        <p>We tailor a plan to your experience.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Structured lessons</h3>
+        <p>Progress tracked on our checklist.</p>
+      </div>
+      <div class="step">
+        <div class="step-num step-num-last">4</div>
+        <h3>Pass with confidence</h3>
+        <p>Test-ready at your local centre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- suburbs / test centres -->
+<section class="section suburbs">
+  <div class="shell">
+    <div class="section-head">
+      <h2 class="h2">Lessons in every Melbourne suburb</h2>
+      <p class="lede">Automatic &amp; manual lessons come to you — anywhere across metropolitan Melbourne, from your home, work or school.</p>
+    </div>
+    <div class="suburbs-box">
+      <div class="suburbs-tag"> 9 VICROADS TEST CENTRES WE OPERATE FROM</div>
+      <p class="suburbs-note">We train and sit your test at each of these official VicRoads centres — not just nearby suburbs:</p>
+      <div class="chips">
+        <span class="chip"> Broadmeadows</span>
+        <span class="chip"> Bundoora</span>
+        <span class="chip"> Burwood East</span>
+        <span class="chip"> Carlton</span>
+        <span class="chip"> Dandenong</span>
+        <span class="chip"> Hoppers Crossing (Werribee)</span>
+        <span class="chip"> Frankston</span>
+        <span class="chip"> Mooroolbark</span>
+        <span class="chip"> Heatherton</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- testimonials -->
+<section class="section" style="background:var(--cream-light)">
+  <div class="shell">
+    <div class="section-head testimonial-head">
+      <h2 class="h2">What our learners say</h2>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-family:'Poppins',sans-serif;font-weight:700;color:#4285F4">Google</span>
+        <span class="stars">★★★★★</span>
+        <span style="font-size:14px">5.0</span>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="card testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>Patient, professional and so encouraging — passed first go. Highly recommend.</p>
+        <div class="testimonial-name">Sarah T.</div>
+      </div>
+      <div class="card testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>As a nervous adult learner I felt calm and in control every lesson. Worth every dollar.</p>
+        <div class="testimonial-name">David L.</div>
+      </div>
+      <div class="card testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>The competency checklist kept me on track. Test-ready faster than I expected.</p>
+        <div class="testimonial-name">Amira K.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:var(--cream-deep)">
+  <div class="shell">
+    <div class="section-head" style="text-align:center">
+      <h2 class="h2">Frequently asked questions</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:860px;margin-inline:auto">
+      <details open="">
+        <summary>Do you offer both automatic and manual lessons?<span class="faq-mark">+</span></summary>
+        <p>Yes — automatic and manual lessons are available across all Melbourne suburbs in late-model dual-control cars.</p>
+      </details>
+      <details>
+        <summary>Can you help with the VicRoads test?<span class="faq-mark">+</span></summary>
+        <p>Absolutely. We run lessons from every VicRoads test centre and offer intensive/express test preparation.</p>
+      </details>
+      <details>
+        <summary>Do you have female instructors?<span class="faq-mark">+</span></summary>
+        <p>Yes — both male and female accredited instructors are available on request.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- book / contact -->
+<section class="section cta" id="book">
+  <div class="shell">
+    <h2>Ready to get started?</h2>
+    <p>Call now and save with our package deals.</p>
+    <div class="cta-actions">
+      <a href="tel:0414771101" class="btn" style="background:#fff;color:var(--brown);box-shadow:0 6px 16px rgba(0,0,0,.15)">📞 0414 771 101</a>
+      <a href="#" class="btn btn-red">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="shell footer-inner">
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Licence Assessment</a>
+      <a href="#">Testimonials</a>
+      <a href="#">FAQs</a>
+      <a href="#">Contact</a>
+    </div>
+    <div>Copyright © Stanislaw Zalewski</div>
+  </div>
+</footer>
+
+</body>
+</html>

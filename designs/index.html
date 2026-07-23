@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work in Progress - Stanisław Zalewski</title>
+<meta name="description" content="Design concepts currently in progress - live previews of the sites I'm building right now.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/assets/code.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Inter', sans-serif;
+    background: #FAF9F6;
+    color: #17140F;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  @keyframes pulseDot { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 40px;
+    background: rgba(250,249,246,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(23,20,15,0.08);
+  }
+  .brand { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; text-decoration: none; color: #17140F; }
+  .brand span { color: oklch(53.139% 0.12465 241.363); }
+  .lang-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; background: transparent;
+    border: 1px solid rgba(23,20,15,0.25); border-radius: 999px;
+    padding: 7px 14px; cursor: pointer; color: #17140F;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .lang-btn:hover { border-color: #17140F; background: rgba(23,20,15,0.06); }
+  .nav { display: flex; align-items: center; gap: 28px; }
+  .nav a {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-decoration: none; color: rgba(23,20,15,0.72);
+    transition: color 0.2s ease; white-space: nowrap;
+  }
+  .nav a:hover { color: #17140F; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; }
+  .hero-inner { position: relative; z-index: 1; padding: 96px 40px 72px; max-width: 1080px; margin: 0 auto; }
+  .hero .kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(23,20,15,0.55); margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 4.8vw, 60px); line-height: 1.05;
+    letter-spacing: -0.03em; font-weight: 800; margin: 0 0 28px; max-width: 700px;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 2vw, 21px); line-height: 1.55;
+    color: rgba(23,20,15,0.65); max-width: 580px; margin: 0 0 40px;
+  }
+  .hero-stat {
+    display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.4;
+    color: rgba(23,20,15,0.6); padding: 13px 22px;
+    border: 1px solid rgba(23,20,15,0.14); border-radius: 999px;
+    max-width: 100%;
+  }
+  .hero-stat .stat-item { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+  .hero-stat .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: oklch(53.139% 0.12465 241.363); animation: pulseDot 2s ease infinite; flex-shrink: 0;
+  }
+  @media (max-width: 560px) {
+    .hero-stat {
+      display: flex; width: 100%;
+      border-radius: 20px; flex-direction: column; align-items: stretch;
+      padding: 16px 18px; gap: 10px; font-size: 12px;
+    }
+    .hero-stat .stat-item { align-items: flex-start; }
+    .hero-stat .dot { margin-top: 5px; }
+    .hero-stat .stat-item > span:last-child { overflow-wrap: anywhere; min-width: 0; }
+  }
+
+  /* Directory */
+  .directory { background: #FAF9F6; padding: 0 40px 96px; }
+  .directory .inner { max-width: 1080px; margin: 0 auto; }
+
+  .client-group { margin-bottom: 56px; }
+  .client-group:last-child { margin-bottom: 0; }
+  .group-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding-bottom: 16px; margin-bottom: 22px;
+    border-bottom: 1px solid rgba(23,20,15,0.12);
+  }
+  .group-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+  .group-count {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(23,20,15,0.45); white-space: nowrap; flex-shrink: 0;
+  }
+
+  .concepts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+  .concept {
+    position: relative; display: flex; flex-direction: column;
+    border: 1px solid rgba(23,20,15,0.12); border-radius: 14px;
+    padding: 22px 22px 24px; background: #FAF9F6;
+    text-decoration: none; color: inherit;
+    transition: border-color 0.25s ease, transform 0.35s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.35s ease;
+  }
+  .concept:hover {
+    border-color: rgba(23,20,15,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(23,20,15,0.07);
+  }
+  .concept:focus-visible { outline: 2px solid oklch(53.139% 0.12465 241.363); outline-offset: 4px; }
+
+  .concept-top {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .concept-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; color: rgba(23,20,15,0.45);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(23,20,15,0.6);
+    border: 1px solid rgba(23,20,15,0.16); border-radius: 999px;
+    padding: 5px 11px; white-space: nowrap;
+  }
+  .badge .dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    background: oklch(53.139% 0.12465 241.363);
+    animation: pulseDot 2s ease infinite;
+  }
+
+  .concept-title {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+    line-height: 1.35; margin-bottom: 10px;
+  }
+  .concept-desc {
+    font-size: 13px; line-height: 1.5; color: rgba(23,20,15,0.55);
+    margin: 0 0 20px; flex: 1 1 auto;
+  }
+  .concept-foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding-top: 16px; border-top: 1px solid rgba(23,20,15,0.08);
+  }
+  .concept-path {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.02em;
+    color: rgba(23,20,15,0.42); overflow-wrap: anywhere;
+  }
+  .concept-open {
+    display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; color: #17140F;
+  }
+  .concept-open svg {
+    width: 12px; height: 12px; display: block;
+    transition: transform 0.28s cubic-bezier(0.2,0.7,0.2,1);
+  }
+  .concept:hover .concept-open svg { transform: translate(2px, -2px); }
+
+  /* Note panel */
+  .note {
+    border: 1px solid rgba(23,20,15,0.12); border-radius: 14px;
+    padding: 24px 24px 26px; margin-top: 56px;
+  }
+  .note-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(23,20,15,0.45);
+    padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid rgba(23,20,15,0.1);
+  }
+  .note-body { font-size: 14px; line-height: 1.6; color: rgba(23,20,15,0.6); margin: 0; max-width: 640px; }
+
+  @media (max-width: 760px) {
+    .header { padding: 14px 16px; gap: 10px; }
+    .nav { gap: 14px; }
+    .nav a { font-size: 11px; letter-spacing: 0.03em; }
+    .lang-btn { padding: 6px 10px; }
+    .hero-inner { padding: 48px 20px 56px; }
+    .directory { padding: 0 20px 72px; }
+    .concepts { grid-template-columns: 1fr; }
+    .contact { padding: 72px 20px 40px; }
+  }
+  @media (max-width: 440px) {
+    .brand { display: none; }
+    .header { justify-content: space-between; }
+    .contact .links { flex-direction: column; align-items: stretch; }
+    .contact .link { text-align: center; }
+  }
+
+  /* Contact */
+  .contact { background: #17140F; color: #FAF9F6; padding: 100px 40px 48px; }
+  .contact .inner { max-width: 1080px; margin: 0 auto; }
+  .contact h2 { font-size: clamp(32px,5vw,56px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px; }
+  .contact .body { font-size:17px; line-height:1.6; color:rgba(250,249,246,0.65); max-width:520px; margin:0 0 40px; }
+  .contact .links { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 64px; }
+  .contact .link {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    border-radius: 999px; padding: 14px 24px; text-decoration: none; font-weight: 600;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+  }
+  .contact .link-primary { background: oklch(53.139% 0.12465 241.363); color: #17140F; }
+  .contact .link-primary:hover { opacity: 0.9; }
+  .contact .link-ghost { border: 1px solid rgba(250,249,246,0.3); color: #FAF9F6; }
+  .contact .link-ghost:hover { border-color: #FAF9F6; }
+  .contact .footer {
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px;
+    padding-top: 24px; border-top: 1px solid rgba(250,249,246,0.14);
+  }
+  .contact .footer .rights { font-family:'JetBrains Mono',monospace; font-size:12px; color:rgba(250,249,246,0.4); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .hero-stat .dot, .badge .dot { animation: none; }
+    .concept { transition: border-color 0.2s ease; }
+    .concept:hover { transform: none; box-shadow: none; }
+    .concept:hover .concept-open svg { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <a class="brand" href="/">Stanisław Zalewski<span>.</span></a>
+  <nav class="nav">
+    <a href="/#work" data-i18n="nav.work"></a>
+    <a href="/#about" data-i18n="nav.about"></a>
+    <a href="/#contact" data-i18n="nav.contact"></a>
+  </nav>
+  <button class="lang-btn" id="langBtn" type="button"></button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker" data-i18n="hero.kicker"></div>
+    <h1 data-i18n="hero.headline"></h1>
+    <p class="hero-sub" data-i18n="hero.sub"></p>
+    <div class="hero-stat">
+      <span class="stat-item"><span class="dot"></span><span data-i18n="hero.statA"></span></span>
+      <span class="stat-item"><span class="dot"></span><span data-i18n="hero.statB"></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTORY -->
+<section class="directory">
+  <div class="inner" id="directory"></div>
+
+  <div class="inner">
+    <div class="note reveal">
+      <div class="note-label" data-i18n="note.label"></div>
+      <p class="note-body" data-i18n="note.body"></p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer class="contact" id="contact">
+  <div class="inner">
+    <h2 data-i18n="contact.title"></h2>
+    <p class="body" data-i18n="contact.body"></p>
+
+    <div class="links">
+      <a class="link link-primary" href="mailto:stanzal2004@gmail.com" id="emailLink"></a>
+      <a class="link link-ghost" href="https://wa.me/0400462453" id="waLink"></a>
+    </div>
+
+    <div class="footer">
+      <div class="rights" data-i18n="footer.rights"></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // The work currently on the bench. Each group is one client; each concept is
+  // one index.html living in a subfolder of designs/. Add a row here when a new
+  // concept folder goes in - the cards, titles, numbering and counts build
+  // themselves; concepts are titled "Concept #N" within their own client group.
+  var groups = [
+    {
+      client: 'Hi-Way Driving School',
+      concepts: [
+        {
+          path: 'hi-way-1/index.html',
+          desc: {
+            en: 'First direction: a broad service page leading with coverage area and transmission options.',
+            pl: 'Pierwszy kierunek: szeroka strona usług z obszarem działania i wyborem skrzyni biegów na pierwszym planie.'
+          }
+        },
+        {
+          path: 'hi-way-2/index.html',
+          desc: {
+            en: 'Second direction: a tighter, message-led take built around one promise and a single call to action.',
+            pl: 'Drugi kierunek: zwężlejszy, oparty na jednym przekazie i pojedynczym wezwaniu do działania.'
+          }
+        }
+      ]
+    },
+    {
+      client: 'Melbourne Driving School',
+      concepts: [
+        {
+          path: 'melb-driving-school-1/index.html',
+          desc: {
+            en: 'Opening layout exploring the booking path and how pricing is presented up front.',
+            pl: 'Pierwszy układ - ścieżka rezerwacji i sposób prezentacji cennika.'
+          }
+        },
+        {
+          path: 'melb-driving-school-2/index.html',
+          desc: {
+            en: 'Alternative layout widening the coverage story across the whole metro area.',
+            pl: 'Alternatywny układ - szerszy zasięg w całej aglomeracji.'
+          }
+        }
+      ]
+    },
+    {
+      client: 'Melbourne Blinds & Awnings',
+      concepts: [
+        {
+          path: 'melbourne-blinds-1/index.html',
+          desc: {
+            en: 'Product-led direction: made-to-measure range with the local showroom kept in view.',
+            pl: 'Kierunek produktowy: oferta na wymiar z lokalnym salonem na widoku.'
+          }
+        },
+        {
+          path: 'melbourne-blinds-2/index.html',
+          desc: {
+            en: 'Value-led direction: the same range framed around price confidence and quoting.',
+            pl: 'Kierunek cenowy: ta sama oferta oparta na zaufaniu do ceny i wycenie.'
+          }
+        }
+      ]
+    }
+  ];
+
+  var lang = 'en';
+
+  var translations = {
+    en: {
+      nav: { work: 'Projects', about: 'About', contact: 'Contact' },
+      hero: {
+        kicker: 'In progress',
+        headline: 'What Im working on right now...',
+        sub: 'Live design concepts for the clients I’m working with at the moment. Everything here is a work in progress - open any one to see where it stands today.',
+        statA: 'Concepts in progress',
+        statB: 'Updated as the work moves'
+      },
+      group: { concepts: 'concepts' },
+      badge: { wip: 'In progress' },
+      card: { open: 'Open', concept: 'Concept' },
+      note: {
+        label: 'A note on these',
+        body: 'These are working drafts, not finished sites. Copy, imagery and details are still being shaped, and each client usually sees two directions before we settle on one. If something here catches your eye - or misses the mark - tell me and I’ll take it from there.'
+      },
+      contact: {
+        title: 'Let’s talk about your project.',
+        body: 'Have a look through the concepts above, then send me a note - I’ll come back to you the same day.',
+        emailLabel: 'Email', waLabel: 'WhatsApp'
+      },
+      footer: { rights: '© 2026 Stanisław Zalewski' }
+    },
+    pl: {
+      nav: { work: 'Projekty', about: 'O mnie', contact: 'Kontakt' },
+      hero: {
+        kicker: 'W trakcie',
+        headline: 'Nad czym teraz pracuję.',
+        sub: 'Koncepcje projektowe dla klientów, z którymi obecnie pracuję. Wszystko tutaj jest w toku - otwórz dowolną, żeby zobaczyć, na jakim jest etapie.',
+        statA: 'Koncepcji w trakcie',
+        statB: 'Aktualizowane na bieżąco'
+      },
+      group: { concepts: 'koncepcje' },
+      badge: { wip: 'W trakcie' },
+      card: { open: 'Otwórz', concept: 'Koncepcja' },
+      note: {
+        label: 'Słowo wyjaśnienia',
+        body: 'To robocze wersje, a nie gotowe strony. Treści, zdjęcia i detale wciąż powstają, a każdy klient zwykle widzi dwa kierunki, zanim wybierzemy jeden. Jeśli coś tu przypadnie Ci do gustu - albo wręcz przeciwnie - daj znać, a zajmę się resztą.'
+      },
+      contact: {
+        title: 'Porozmawiajmy o Twoim projekcie.',
+        body: 'Przejrzyj koncepcje powyżej i napisz do mnie - odezwę się tego samego dnia.',
+        emailLabel: 'Email', waLabel: 'WhatsApp'
+      },
+      footer: { rights: '© 2026 Stanisław Zalewski' }
+    }
+  };
+
+  function resolve(obj, path) {
+    return path.split('.').reduce(function (acc, key) {
+      return (acc && acc[key] !== undefined) ? acc[key] : undefined;
+    }, obj);
+  }
+
+  function setText(node, value) {
+    if (typeof value === 'string') node.textContent = value;
+  }
+
+  var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>';
+
+  // Build the client groups and their concept cards from `groups` above.
+  function renderDirectory() {
+    var t = translations[lang];
+    var host = document.getElementById('directory');
+    host.textContent = '';
+
+    var index = 0;
+
+    groups.forEach(function (group) {
+      var section = document.createElement('div');
+      section.className = 'client-group reveal';
+
+      var head = document.createElement('div');
+      head.className = 'group-head';
+
+      var name = document.createElement('div');
+      name.className = 'group-name';
+      name.textContent = group.client;
+
+      var count = document.createElement('div');
+      count.className = 'group-count';
+      count.textContent = group.concepts.length + ' ' + t.group.concepts;
+
+      head.appendChild(name);
+      head.appendChild(count);
+      section.appendChild(head);
+
+      var grid = document.createElement('div');
+      grid.className = 'concepts';
+
+      group.concepts.forEach(function (concept, i) {
+        index += 1;
+
+        var card = document.createElement('a');
+        card.className = 'concept';
+        card.href = concept.path;
+
+        var top = document.createElement('div');
+        top.className = 'concept-top';
+
+        var num = document.createElement('span');
+        num.className = 'concept-num';
+        num.textContent = index < 10 ? '0' + index : String(index);
+
+        var badge = document.createElement('span');
+        badge.className = 'badge';
+        var bdot = document.createElement('span');
+        bdot.className = 'dot';
+        var blabel = document.createElement('span');
+        blabel.textContent = t.badge.wip;
+        badge.appendChild(bdot);
+        badge.appendChild(blabel);
+
+        top.appendChild(num);
+        top.appendChild(badge);
+
+        var title = document.createElement('div');
+        title.className = 'concept-title';
+        title.textContent = t.card.concept + ' #' + (i + 1);
+
+        var desc = document.createElement('p');
+        desc.className = 'concept-desc';
+        desc.textContent = concept.desc[lang];
+
+        var foot = document.createElement('div');
+        foot.className = 'concept-foot';
+
+        var path = document.createElement('span');
+        path.className = 'concept-path';
+        path.textContent = concept.path.replace('/index.html', '');
+
+        var open = document.createElement('span');
+        open.className = 'concept-open';
+        var openLabel = document.createElement('span');
+        openLabel.textContent = t.card.open;
+        open.appendChild(openLabel);
+        open.insertAdjacentHTML('beforeend', ARROW);
+
+        foot.appendChild(path);
+        foot.appendChild(open);
+
+        card.appendChild(top);
+        card.appendChild(title);
+        card.appendChild(desc);
+        card.appendChild(foot);
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      host.appendChild(section);
+    });
+
+    return index;
+  }
+
+  function render() {
+    var t = translations[lang];
+    document.documentElement.lang = lang;
+
+    var total = renderDirectory();
+
+    document.querySelectorAll('[data-i18n]').forEach(function (node) {
+      setText(node, resolve(t, node.getAttribute('data-i18n')));
+    });
+
+    // Hero counter reflects however many concepts are actually listed.
+    document.querySelector('[data-i18n="hero.statA"]').textContent = total + ' ' + t.hero.statA.toLowerCase();
+
+    document.getElementById('langBtn').textContent = lang === 'en' ? 'PL' : 'EN';
+    document.getElementById('emailLink').textContent = t.contact.emailLabel + ' → stanzal2004@gmail.com';
+    document.getElementById('waLink').textContent = t.contact.waLabel + ' → +61 400 462 453';
+
+    observeReveals();
+  }
+
+  document.getElementById('langBtn').addEventListener('click', function () {
+    lang = lang === 'en' ? 'pl' : 'en';
+    render();
+  });
+
+  // Scroll reveal - same easing/threshold as the main page.
+  var revealObserver = null;
+  function observeReveals() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    }
+    document.querySelectorAll('.reveal:not(.is-visible)').forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>

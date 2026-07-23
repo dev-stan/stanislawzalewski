@@ -102,6 +102,20 @@
     transition: color 0.2s ease; white-space: nowrap;
   }
   .nav a:hover { color: #17140F; }
+  /* "( in progress )" - links to the designs/ directory of live work. The dot
+     borrows the hero's pulse so it reads as something currently moving. */
+  .nav .nav-wip {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(23,20,15,0.6);
+    border: 1px solid rgba(23,20,15,0.18); border-radius: 999px;
+    padding: 6px 13px;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .nav .nav-wip:hover { color: #17140F; border-color: rgba(23,20,15,0.4); background: rgba(23,20,15,0.04); }
+  .nav .wip-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    background: oklch(53.139% 0.12465 241.363); animation: pulseDot 2s ease infinite;
+  }
 
   /* Hero */
   .hero { position: relative; overflow: hidden; }
@@ -656,6 +670,7 @@
     .header { padding: 14px 16px; gap: 10px; }
     .nav { gap: 14px; }
     .nav a { font-size: 11px; letter-spacing: 0.03em; }
+    .nav .nav-wip { padding: 5px 10px; gap: 6px; }
     .lang-btn { padding: 6px 10px; }
     .hero-inner { padding: 48px 20px 64px; }
     .kotowski, .dzieciaki, .italy, .zukowski { padding-top: 72px; padding-bottom: 72px; padding-left: 20px; padding-right: 20px; }
@@ -759,6 +774,7 @@
     <a href="#work" data-i18n="nav.work"></a>
     <a href="#about" data-i18n="nav.about"></a>
     <a href="#contact" data-i18n="nav.contact"></a>
+    <a class="nav-wip" href="/designs/"><span class="wip-dot" aria-hidden="true"></span><span data-i18n="nav.inProgress"></span></a>
   </nav>
   <button class="lang-btn" id="langBtn" type="button"></button>
 </header>
@@ -1141,7 +1157,7 @@
       },
       footer: { rights: 'Designed and built by me ;)' },
       ui: { viewShot: 'View' },
-      nav: { work: 'Projects', about: 'About', contact: 'Contact' }
+      nav: { work: 'Projects', about: 'About', contact: 'Contact', inProgress: 'Projects Im working on →' }
     },
     pl: {
       hero: {
@@ -1233,7 +1249,7 @@
       },
       footer: { rights: 'Zaprojektowane i zbudowane przeze mnie ;)' },
       ui: { viewShot: 'Zobacz' },
-      nav: { work: 'Projekty', about: 'O mnie', contact: 'Kontakt' }
+      nav: { work: 'Projekty', about: 'O mnie', contact: 'Kontakt', inProgress: '( w trakcie )' }
     }
   };
 
